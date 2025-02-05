@@ -1,0 +1,43 @@
+import pandas as pd
+
+# Пример создания DataFrame без столбца "Город"
+data = {
+    'Имя': ['Алексей', 'Мария', 'Иван', 'Елена', 'Сергей'],
+    'Возраст': [30, 25, 40, 35, 29],
+    'Оценка': [85, 90, 78, 88, 92],
+    'Зарплата': [50000, 60000, 55000, 70000, 65000],
+    'Стаж': [5, 3, 10, 6, 8],
+    'Проекты': [3, 5, 2, 4, 6]
+}
+
+df = pd.DataFrame(data)
+
+print("Доступные данные:")
+print(df)
+
+while True:
+    print("\nВыберите опцию:")
+    print("1. Среднее арифметическое по числовому столбцу")
+    print("2. Выйти")
+
+    option = input("Введите номер опции: ")
+
+    if option == '1':
+        print("Доступные числовые столбцы:")
+        numeric_columns = df.select_dtypes(include='number').columns
+        for index, column in enumerate(numeric_columns):
+            print(f"{index}. {column}")
+
+        col_index = int(input("Введите индекс столбца для вычисления среднего арифметического: "))
+        if 0 <= col_index < len(numeric_columns):
+            mean_value = df[numeric_columns[col_index]].mean()
+            print(f"Среднее арифметическое по столбцу '{numeric_columns[col_index]}': {mean_value}")
+        else:
+            print("Индекс вне диапазона.")
+
+    elif option == '2':
+        print("Выход из программы.")
+        break
+
+    else:
+        print("Некорректный выбор, попробуйте снова.")
